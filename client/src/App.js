@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import Header from './components/header/header';
 import Jumbotron from './components/jumbotron/jumbotron';
+import Article from './components/articles/article';
 import './App.css';
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
     <div>
       <Header />
       <Jumbotron />
+      <Article />
     </div>
   );
 }
