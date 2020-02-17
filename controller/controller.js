@@ -1,35 +1,33 @@
-const express = require('express');
-const router = express.Router();
+const db = require('../models');
+const scraper = require('../scraper/scraper');
 
-const path = require('path');
-
-const request = require('request');
-const cheerio = require('cheerio');
-
-const Article = require('./models/articles.js');
-const Comment = require('./models/comments.js');
-
-router.get('/', (req, res) => {
-    res.redirect("/news-stories");
-})
-
-router.get('/scrape', (res, req) => {
-    request('https://www.npr.org/sections/pop-culture/', (error, response, html) => {
-        let $ = cheerio.load(html);
-
-        $('article').each(function (i, element) {
-            const articles = [];
-
-            result.headline = $(this)
-                .children()
-                .hasClass('.item-info-wrap')
-                .is('h2');
-
-            console.log(result.headline);
-        })
-
-        res.redirect('/');
-    });
-});
-
-
+module.exports = {
+    headlineScrape: function (req, res) {
+        // scrape the NYT
+        return scraper()
+            .then(function (articles) {
+                // then insert articles into the db
+                return db.Article.create(articles);
+            })
+    }
+    //     .then(function(dbHeadline) {
+    //       if (dbHeadline.length === 0) {
+    //         res.json({
+    //           message: "No new articles today. Check back tomorrow!"
+    //         });
+    //       }
+    //       else {
+    //         // Otherwise send back a count of how many new articles we got
+    //         res.json({
+    //           message: "Added " + dbHeadline.length + " new articles!"
+    //         });
+    //       }
+    //     })
+    //     .catch(function(err) {
+    //       // This query won't insert articles with duplicate headlines, but it will error after inserting the others
+    //       res.json({
+    //         message: "Scrape complete!!"
+    //       });
+    //     });
+    // }
+};

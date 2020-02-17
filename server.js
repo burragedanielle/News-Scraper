@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'build')));
+const articles = require('./routes/API/articles');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,13 +39,13 @@ app.get('/api/news-stories', (req, res) => {
     res.json(newsStories);
 });
 
-mongoose.connect('mongodb://localhost/news-stories');
-const db = mongoose.connection;
+const db = require('./config/keys').mongoURI;
+mongoose.connect(db)
+    .then(() => console.log(`Mongodb is connected`))
+    .catch(err => console.log(err));
 
-db.on('error', console.error.bind(console, `connection error:`));
-db.once('open', function () {
-    console.log(`Connected to Mongoose!`);
-})
+
+app.use('/api/articles', articles);
 
 const port = process.env.PORT || 5000;
 
