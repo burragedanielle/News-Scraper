@@ -4,10 +4,10 @@
   "description": "News Scraper Project React App KU Bootcamp",
   "main": "server.js",
   "scripts": {
+    "start": "node index.js",
     "client": "npm run start --prefix client",
     "server": "nodemon index.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
-    "start": "node index.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "repository": {
@@ -32,5 +32,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
+  },
+  "engines": {
+    "node": "12.14.1"
   }
 }
