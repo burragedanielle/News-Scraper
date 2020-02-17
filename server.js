@@ -11,14 +11,16 @@ const articles = require('./routes/API/articles');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const db = require('./config/keys').mongoURI;
+const MONGODB_URI = process.env.MONGO_URI || 'mongodb://danielle123:danielle123@ds237770.mlab.com:37770/heroku_09h32qmq'
+
+const db = MONGODB_URI;
 mongoose.connect(db)
     .then(() => console.log(`Mongodb is connected`))
     .catch(err => console.log(err));
 
 app.use('/api/articles', articles);
 
-const port = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV === 'production') {
     // Serve any static files
@@ -29,6 +31,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 
 
