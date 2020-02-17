@@ -28,6 +28,7 @@
     "mongoose": "^5.9.0",
     "request": "^2.88.2"
   },
+  "heroku-postbuild": "cd client && npm install && npm run build",
   "devDependencies": {
     "nodemon": "^2.0.2"
   }
