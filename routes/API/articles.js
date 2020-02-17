@@ -7,7 +7,6 @@ const cheerio = require('cheerio');
 
 //@GET API 
 //@desc - gets all articles 
-
 router.get('/', async (req, res) => {
     try {
         const articles = await Article.find().sort({ date: -1 })
@@ -59,7 +58,22 @@ router.post('/', (req, res) => {
                             url: url
                         }
                         articlesArr.push(articlesToAdd);
-                        console.log(articlesArr);
+
+                        articlesArr.forEach(article => {
+                            const newArticle = new Article({
+                                headline: headline,
+                                summary: summary,
+                                url: url
+                            });
+
+                            newArticle.save(function (err, doc) {
+                                if (err) {
+                                    console.log(err)
+                                } else {
+                                    console.log(doc)
+                                }
+                            })
+                        });
                     };
                 })
             }
@@ -68,17 +82,7 @@ router.post('/', (req, res) => {
 
     }
 
-    scraper(res.body);
-
-
-    // const newArticle = new Article({
-    //     headline: req.body.headline,
-    //     summary: req.body.summary,
-    //     url: req.body.url
-    // });
-
-    // newArticle.save().then(articles => res.json(articles));
-
+    scraper(res.body)
 });
 
 
