@@ -26,27 +26,31 @@ class Article extends Component {
 
     render() {
         return (
-            <div>
-                <ul>
-                    {
-                        this.state.newsStories.map((article) => {
-                            return (
-                                <li
-                                    key={article.id}
-                                    headline={article.headline}
-                                    summary={article.summary}
-                                    url={article.url}
-                                >
-                                    <h3>{article.headline}</h3>
-                                    <p>{article.summary}</p>
-                                    <p>{article.url}</p>
-                                </li>
-                            )
+            <React.Fragment>
+                <div className='container'>
+                    <div className='row'>
+                        <ul className='articles-list'>
+                            {
+                                this.state.newsStories.map((article) => {
+                                    return (
+                                        <li
+                                            key={article.id}
+                                            headline={article.headline}
+                                            summary={article.summary}
+                                            url={article.url}
+                                        >
+                                            <h3>{article.headline}</h3>
+                                            <p>{article.summary}</p>
+                                            <p>{article.url}</p>
+                                        </li>
+                                    )
 
-                        })
-                    }
-                </ul>
-            </div>
+                                })
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </React.Fragment>
         );
     }
 }

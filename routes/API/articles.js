@@ -50,27 +50,33 @@ router.post('/scrape', (req, res) => {
                         .attr('href');
 
                     if (headline && summary && url) {
+
                         let articlesToAdd = {
                             headline: headline,
                             summary: summary,
                             url: url
                         }
+
                         articlesArr.push(articlesToAdd);
 
                         articlesArr.forEach(article => {
-                            const newArticle = new Article({
-                                headline: headline,
-                                summary: summary,
-                                url: url
-                            });
+                            console.log(article.headline)
 
-                            newArticle.save(function (err, doc) {
-                                if (err) {
-                                    console.log(err)
-                                } else {
-                                    console.log(doc)
-                                }
-                            })
+                            if (articlesArr.indexOf(article.headline === -1)) {
+                                const newArticle = new Article({
+                                    headline: headline,
+                                    summary: summary,
+                                    url: url
+                                });
+
+                                newArticle.save(function (err, doc) {
+                                    if (err) {
+                                        console.log(err)
+                                    } else {
+                                        console.log(doc)
+                                    }
+                                })
+                            }
                         });
                     };
                 })
