@@ -6,19 +6,17 @@ const request = require('request');
 const cheerio = require('cheerio');
 
 //@GET API 
-//@desc - gets all articles 
-router.get('/', async (req, res) => {
-    try {
-        const articles = await Article.find().sort({ date: -1 })
-        res.json(articles);
-    } catch (err) {
-        res.status(500).json({ message: err.message })
-    }
-});
+//@desc - gets all articles
+router.get('/start', (req, res) => {
+    Article.find({})
+        .then(foundArticles => {
+            res.json(foundArticles);
+        });
+})
 
 //@POST API 
 //@desc - scrapes all articles and adds to db
-router.post('/', (req, res) => {
+router.post('/scrape', (req, res) => {
     scraper = () => {
         request('https://www.npr.org/sections/pop-culture/', (error, response, html) => {
             const articlesArr = [];
@@ -79,9 +77,7 @@ router.post('/', (req, res) => {
             }
             res.json(articlesArr);
         });
-
     }
-
     scraper(res.body)
 });
 

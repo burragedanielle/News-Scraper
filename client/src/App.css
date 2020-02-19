@@ -1,11 +1,15 @@
+li {
+    text-decoration: none;
+}
+
 body {
-  font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.navbar-brand {
-  font-family: 'Courier Prime', monospace;
+h1, 
+.navbar,
+a {
+    font-family: 'Courier Prime', monospace;
 }
 
-.display-4 {
-  font-family: 'Courier Prime', monospace;
-}
+
