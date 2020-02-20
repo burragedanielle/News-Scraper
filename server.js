@@ -1,3 +1,4 @@
+require('dotenv').config();
 const cheerio = require('cheerio');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,7 +9,9 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const MONGODB_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/mongoHeadlines';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mongoHeadlines';
+
+console.log('This is the Mongo URI', MONGODB_URI);
 
 mongoose.connect(MONGODB_URI)
     .then(() => console.log(`Mongodb is connected`))
