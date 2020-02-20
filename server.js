@@ -17,12 +17,10 @@ mongoose.connect(MONGODB_URI)
     .then(() => console.log(`Mongodb is connected`))
     .catch(err => console.log(err));
 
-app.use(express.static(path.join(__dirname, "client", "build")))
-
 // Routes
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
 
 const articles = require('./routes/API/articles');
 app.use('/api', articles);

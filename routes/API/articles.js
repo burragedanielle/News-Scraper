@@ -5,6 +5,10 @@ const Article = require('../../models/Articles');
 const request = require('request');
 const cheerio = require('cheerio');
 
+router.use(function (req, res) {
+    res.sendFile(path.join(__dirname, "../../client/build/index.html"));
+});
+
 //@GET API 
 //@desc - gets all articles
 router.get('/start', (req, res) => {
